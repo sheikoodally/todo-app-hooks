@@ -5,37 +5,43 @@ function App() {
 
   const [todoList, setTodoList] = useState([
   {
-    id: "0",
+    id: 1,
     task: "Laundry",
-    completed: false
   },
   {
-    id: "1",
+    id: 2,
     task: "Dentist Appointment",
-    completed: false
   },
   {
-    id: "2",
+    id: 3,
     task: "Groceries",
-    completed: false
   },
   ]);
 
   const [value, setValue] = useState('');
-  console.log(todoList);
+  console.log(value);
 
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault(); // prevents browser refresh
+    addTodo(value)
+    setValue('');
   }
 
-  function handleTaskInputChange(e) {
+  const handleTaskInputChange = (e) => {
     // e.target.value contains new input from onChange
     // event for input elements
-    setTodoList({ ...todoList, task: e.target.value });
+    setValue(e.target.value);
   }
 
-  function removeTodo(id) {
+  console.log(todoList);
+
+  const addTodo = (task) => {
+    const updatedTodo = {...todoList, }
+    setTodoList(updatedTodo);
+  }
+
+  const removeTodo = (id) => {
     setTodoList(todoList.filter(todo => todo.id !== id));
   }
 
@@ -50,15 +56,17 @@ function App() {
         {todoList.map((todo) => (
           <div key={todo.id}>
             <span>{todo.task}</span>
-            <button key={todo.id} onClick={removeTodo}>Close</button>
+            <button onClick={removeTodo}>Close</button>
           </div>
         ))}
         <form onSubmit={handleSubmit}>
           <input 
             type="text" 
+            value = {value}
             placeholder="input task here"
+            onChange = {handleTaskInputChange}
           />
-          <button>Add</button>
+          <button type='submit'>Add</button>
         </form>
       </div>
     </div>

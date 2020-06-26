@@ -36,10 +36,19 @@ function App() {
 
   console.log(todoList);
 
+  const [updated, setUpdated] = useState([
+    {
+      id: 0,
+      task: '',
+    }
+  ])
+
   const addTodo = (task) => {
-    const updatedTodo = {...todoList, }
+
+    const updatedTodo = {...todoList, task}
     setTodoList(updatedTodo);
   }
+
 
   const removeTodo = (id) => {
     setTodoList(todoList.filter(todo => todo.id !== id));
@@ -56,7 +65,7 @@ function App() {
         {todoList.map((todo) => (
           <div key={todo.id}>
             <span>{todo.task}</span>
-            <button onClick={removeTodo}>Close</button>
+            <button onClick={removeTodo.bind(this, todo.id)}>Close</button>
           </div>
         ))}
         <form onSubmit={handleSubmit}>

@@ -45,23 +45,11 @@ function App() {
 
   console.log(todoList);
 
-  let [updated, setUpdated] = useState(
-    {
-      //id: 0,
-      task: '',
-      completed: false
-    },
-  )
 
   const addTodo = (id, task) => {
 
-    let counter = 3
-
-    //setUpdated(updated.id= 4 , updated.task = task, updated.completed = false);
-    //setUpdated({task:task, completed:false});
-    const updatedTodo = [...todoList, {id:id ,task:task, completed:false}];
+    const updatedTodo = [...todoList, {id ,task, completed:false}];
     setTodoList(updatedTodo);
-    console.log(updated);
 
   }
 

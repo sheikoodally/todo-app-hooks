@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import uuid from 'react-uuid';
 import './App.css';
 
 function App() {
@@ -7,25 +8,29 @@ function App() {
   {
     id: 1,
     task: "Laundry",
+    completed: false
   },
   {
     id: 2,
     task: "Dentist Appointment",
+    completed: false
   },
   {
     id: 3,
     task: "Groceries",
+    completed: false
   },
   ]);
 
   const [value, setValue] = useState('');
-  console.log(value);
+  const [idVal, setIdVal] = useState();
 
 
   const handleSubmit = (e) => {
     e.preventDefault(); // prevents browser refresh
-    addTodo(value)
+    addTodo(idVal ,value)
     setValue('');
+    setIdVal('');
   }
 
   const handleTaskInputChange = (e) => {
@@ -34,21 +39,29 @@ function App() {
     setValue(e.target.value);
   }
 
+  const handleIdChange = (e) => {
+    setIdVal(e);
+  }
+
   console.log(todoList);
 
-  const [updated, setUpdated] = useState(
+  let [updated, setUpdated] = useState(
     {
-      id: 0,
+      //id: 0,
       task: '',
-    }
+      completed: false
+    },
   )
 
-  const addTodo = (task) => {
+  const addTodo = (id, task) => {
 
-    setUpdated(updated.id= 4, updated.task = task);
-    const updatedTodo = [...todoList, updated]
+    let counter = 3
+
+    //setUpdated(updated.id= 4 , updated.task = task, updated.completed = false);
+    //setUpdated({task:task, completed:false});
+    const updatedTodo = [...todoList, {id:id ,task:task, completed:false}];
     setTodoList(updatedTodo);
-    console.log(updatedTodo);
+    console.log(updated);
 
   }
 
@@ -61,12 +74,11 @@ function App() {
   return (
     <div className="App">
       <h1>Sheik todo list</h1>
-      <div className="todoList">
-        
+      <div className="todoList">        
       </div>
       <div className="todoInput">
-        {todoList.map((todo) => (
-          <div key={todo.id}>
+        {todoList.map((todo, index) => (
+          <div key={index}>
             <span>{todo.task}</span>
             <button onClick={removeTodo.bind(this, todo.id)}>Close</button>
           </div>
@@ -78,7 +90,7 @@ function App() {
             placeholder="input task here"
             onChange = {handleTaskInputChange}
           />
-          <button type='submit'>Add</button>
+          <button type='submit' onClick={handleIdChange.bind(this, uuid())}>Add</button>
         </form>
       </div>
     </div>

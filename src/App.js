@@ -36,17 +36,20 @@ function App() {
 
   console.log(todoList);
 
-  const [updated, setUpdated] = useState([
+  const [updated, setUpdated] = useState(
     {
       id: 0,
       task: '',
     }
-  ])
+  )
 
   const addTodo = (task) => {
 
-    const updatedTodo = {...todoList, task}
+    setUpdated(updated.id= 4, updated.task = task);
+    const updatedTodo = [...todoList, updated]
     setTodoList(updatedTodo);
+    console.log(updatedTodo);
+
   }
 
 

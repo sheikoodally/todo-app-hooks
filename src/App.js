@@ -8,7 +8,7 @@ function App() {
   {
     id: 1,
     task: "Laundry",
-    completed: false
+    completed: true
   },
   {
     id: 2,
@@ -47,15 +47,22 @@ function App() {
 
 
   const addTodo = (id, task) => {
-
     const updatedTodo = [...todoList, {id ,task, completed:false}];
     setTodoList(updatedTodo);
-
   }
 
 
   const removeTodo = (id) => {
     setTodoList(todoList.filter(todo => todo.id !== id));
+  }
+
+  const changTodo = (id) =>{
+    setTodoList(todoList.map(todo => {
+      if(todo.id === id){
+        todo.completed = !todo.completed
+      }
+      return todo;
+    }));
   }
 
 
@@ -66,9 +73,10 @@ function App() {
       </div>
       <div className="todoInput">
         {todoList.map((todo, index) => (
-          <div key={index}>
-            <span>{todo.task}</span>
-            <button onClick={removeTodo.bind(this, todo.id)}>Close</button>
+          <div key={todo.id} style={{textDecoration: todo.completed ? 'line-through' : 'none'}}>
+            <span>{todo.task} </span>
+            <input type="checkbox" onClick={changTodo.bind(this, todo.id)}/>
+            <button onClick={removeTodo.bind(this, todo.id)}>X</button>
           </div>
         ))}
         <form onSubmit={handleSubmit}>
